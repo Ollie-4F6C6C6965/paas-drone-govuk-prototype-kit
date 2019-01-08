@@ -5,3 +5,8 @@ applications:
     - npm install
   memory: 256M
   buildpack: nodejs_buildpack
+  env:
+    NODE_ENV: development
+    USE_AUTH: false
+    USERNAME: test
+    PASSWORD: test
