@@ -1,0 +1,35 @@
+kind: pipeline
+name: default
+
+steps:
+- name: get-govuk-prototype-kit
+  image: alpine/git
+  commands:
+    - git clone https://github.com/alphagov/govuk-prototype-kit.git /drone/src/app/govuk-prototype-kit
+# to do...
+#- name: test-govuk-prototype-kit
+- name: cf-deploy
+  image: governmentpaas/cf-cli
+  environment:
+    GPAAS_APP_NAME: govuk-prototype-kit
+    GPAAS_USER:
+      from_secret: gpaas_user
+    GPAAS_PASS:
+      from_secret: gpaas_pass
+    GPAAS_ORG: gds-tech-ops
+    GPAAS_SPACE: sandbox
+    GPAAS_API: api.cloud.service.gov.uk
+  commands:
+    # set api endpoint and login
+    - cf login -a $GPAAS_API -u $GPAAS_USER -p "$GPAAS_PASS"
+    # set the target
+    - cf target -o $GPAAS_ORG -s $GPAAS_SPACE
+    # push the apps
+    - cd /drone/src/app/govuk-prototype-kit
+    - cf push $GPAAS_APP_NAME
+
+---
+kind: secret
+data:
+  gpaas_user: lnt2cWGu7GP5sVLlT7splSdW0OxXcQlULywNBJrm8lehKwlBpfnH415jcDJIZPqtQWHiCIXEbIkD7JXNsHes4oXnlttJE5TodrRHryQnptG8
+  gpaas_pass: 9VyYjewkbGZzXIwPCDpSmvsnWW2Q5TSgcMFkHNttoi4i3rEq-YUldLKKTO32xa_7kYsk5Heqw5l1CQJ3RCTK
