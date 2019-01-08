@@ -12,4 +12,5 @@ applications:
     USERNAME: test
     PASSWORD: test
   memory: 256M
-  buildpack: alpine
+  docker:
+    image: alpine
