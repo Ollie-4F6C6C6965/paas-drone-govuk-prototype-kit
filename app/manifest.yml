@@ -6,3 +6,5 @@ applications:
     - npm start
   memory: 256M
   buildpack: nodejs_buildpack
+  env:
+    USE_AUTH: false
