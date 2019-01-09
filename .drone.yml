@@ -21,13 +21,13 @@ steps:
     GPAAS_API: api.cloud.service.gov.uk
   commands:
     # set api endpoint and login
-    - cf login -a $GPAAS_API -u $GPAAS_USER -p "$GPAAS_PASS"
+    - 'cf login -a $GPAAS_API -u $GPAAS_USER -p "$GPAAS_PASS"'
     # set the target
-    - cf target -o $GPAAS_ORG -s $GPAAS_SPACE
+    - 'cf target -o $GPAAS_ORG -s $GPAAS_SPACE'
     # push the apps
-    - cd /drone/src/app/govuk-prototype-kit
-    - echo "web: export NODE_ENV=development && export USE_AUTH=false && node ./node_modules/gulp/bin/gulp generate-assets && node listen-on-port.js" > /drone/src/app/govuk-prototype-kit/Procfile
-    - cf push $GPAAS_APP_NAME
+    - 'cd /drone/src/app/govuk-prototype-kit'
+    - 'echo "web: export NODE_ENV=development && export USE_AUTH=false && node ./node_modules/gulp/bin/gulp generate-assets && node listen-on-port.js" > /drone/src/app/govuk-prototype-kit/Procfile'
+    - 'cf push $GPAAS_APP_NAME'
 
 ---
 kind: secret
