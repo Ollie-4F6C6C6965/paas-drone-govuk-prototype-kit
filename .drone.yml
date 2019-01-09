@@ -26,7 +26,6 @@ steps:
     - cf target -o $GPAAS_ORG -s $GPAAS_SPACE
     # push the apps
     - cd /drone/src/app/govuk-prototype-kit
-    - rm /drone/src/app/govuk-prototype-kit/package.json
     - cf push $GPAAS_APP_NAME
 
 ---
