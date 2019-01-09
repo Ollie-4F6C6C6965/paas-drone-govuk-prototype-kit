@@ -1,16 +1,11 @@
 ---
 applications:
 - name: $GPAAS_APP_NAME
-  command:
-    - apk update
-    - apk add node npm
-    - npm install
-    - npm start
+  command: echo $NODE_ENV $USE_AUTH
   env:
     NODE_ENV: development
     USE_AUTH: false
     USERNAME: test
     PASSWORD: test
   memory: 256M
-  docker:
-    image: alpine
+  buildpack: nodejs_buildpack
